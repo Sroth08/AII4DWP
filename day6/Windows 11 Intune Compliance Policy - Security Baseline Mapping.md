@@ -148,3 +148,27 @@ Intune admin center (intune.microsoft.com)
 | 6 | PIN/password configured | System Security | Require a password to unlock mobile devices | Yes |
 | 7 | Not jailbroken/rooted | Device Health | Require device to not be jailbroken or rooted (+ Require code integrity as real control) | Require |
 | — | Grace period | Actions for noncompliance | Mark device noncompliant → Schedule | 7 days |
+
+---
+
+## Post-Deployment Validation Steps (Test Device)
+
+### 1. Where to check compliance status for this specific policy
+- **Per-device view (fastest for a single test device):** Intune admin center > **Devices > All devices** > select the test device > **Device compliance** blade. This lists every assigned compliance policy and its individual status (Compliant / Not compliant / In grace period / Not evaluated) for that device.
+- **Per-policy view (fastest for checking the whole fleet against this policy):** **Devices > Compliance policies > Policies** > select this policy > **Device status** tab — shows every assigned device and its status against this specific policy.
+- **Per-setting drill-down (to see exactly which of the 7 requirements failed):** From either screen above, click into the device/policy row, or go to **Devices > Monitor > Setting compliance** and filter by device — this shows a pass/fail line for each individual setting (BitLocker, Secure Boot, OS version, etc.), not just the overall policy result.
+- Confirm the device has actually synced recently: check **Last check-in** / **Last sync** timestamp on the device's **Overview** blade before trusting the status shown.
+
+### 2. What Compliant / Not compliant / In grace period mean for Conditional Access
+| Status | Meaning | Conditional Access impact |
+|---|---|---|
+| **Compliant** | All required settings currently pass evaluation. | CA policies requiring "device marked as compliant" **grant** access. |
+| **In grace period** | One or more settings are currently failing, but the **Actions for noncompliance** schedule (7 days, per this policy) hasn't elapsed yet. | The device is **still treated as compliant for CA purposes** — access is **granted**. This is the whole point of the grace period: it delays the compliance flag flip, not just the report label. |
+| **Not compliant** | One or more settings failed and the grace period has expired (or the device was never within a grace window). | CA policies requiring compliance **block** access (or apply whatever fallback action is configured, e.g., prompt for remediation) until the device passes evaluation again. |
+
+### 3. BitLocker shows Not compliant despite BitLocker being enabled — top 3 false-positive causes and fastest checks
+| # | Cause | Fastest check |
+|---|---|---|
+| 1 | **Recovery key not escrowed to Microsoft Entra ID.** Intune requires the recovery key to be backed up to Entra ID, not just local encryption, for the device to count as compliant. | On the device record: **Devices > All devices > [device] > Recovery keys** blade (or Entra ID device blade > BitLocker keys). If no key is listed, this is the cause — force a key upload with `manage-bde -protectors -adbackup C: -id <ProtectorID>` or trigger a resync. |
+| 2 | **Protection suspended, not actually off.** Encryption completed, but protection is in a suspended state (common after firmware/driver updates or manual `Suspend-BitLocker`), so Intune reads it as not enforced. | On the device, run `manage-bde -status C:` — look for **Protection Status: Protection Off** even though **Percentage Encrypted: 100%**. If suspended, resume with `Resume-BitLocker -MountPoint "C:"`. |
+| 3 | **Stale compliance report / sync delay.** The device's encryption state changed (e.g., BitLocker just finished, or was just re-escrowed) but Intune hasn't received an updated report yet. | Force a sync from the device: **Settings app > Accounts > Access work or school > [tenant] > Info > Sync**, then re-check the **Last check-in** timestamp on the device's Intune Overview blade before re-evaluating status (allow a few minutes for the report to process). |
