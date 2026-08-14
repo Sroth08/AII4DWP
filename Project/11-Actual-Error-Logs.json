@@ -1,0 +1,82 @@
+﻿[
+    {
+        "timestampUtc":  "2026-08-14T05:30:57.5774518Z",
+        "section":  "InstalledApplications",
+        "operation":  "Read registry path HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\*",
+        "message":  "The property \u0027DisplayName\u0027 cannot be found on this object. Verify that the property exists.",
+        "errorType":  "System.Management.Automation.PropertyNotFoundException",
+        "fullyQualifiedErrorId":  "PropertyNotFoundStrict,Microsoft.PowerShell.Commands.WhereObjectCommand"
+    },
+    {
+        "timestampUtc":  "2026-08-14T05:30:57.6399871Z",
+        "section":  "InstalledApplications",
+        "operation":  "Read registry path HKLM:\\SOFTWARE\\WOW6432Node\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\*",
+        "message":  "The property \u0027DisplayName\u0027 cannot be found on this object. Verify that the property exists.",
+        "errorType":  "System.Management.Automation.PropertyNotFoundException",
+        "fullyQualifiedErrorId":  "PropertyNotFoundStrict,Microsoft.PowerShell.Commands.WhereObjectCommand"
+    },
+    {
+        "timestampUtc":  "2026-08-14T05:30:59.2588630Z",
+        "section":  "ScheduledTasks",
+        "operation":  "Get-ScheduledTask",
+        "message":  "The property \u0027TriggerType\u0027 cannot be found on this object. Verify that the property exists.",
+        "errorType":  "System.Management.Automation.PropertyNotFoundException",
+        "fullyQualifiedErrorId":  "PropertyNotFoundStrict,Microsoft.PowerShell.Commands.ForEachObjectCommand"
+    },
+    {
+        "timestampUtc":  "2026-08-14T05:30:59.5114622Z",
+        "section":  "LoginDurationIndicators",
+        "operation":  "Get-WinEvent Microsoft-Windows-Diagnostics-Performance/Operational",
+        "message":  "There is not an event log on the localhost computer that matches \"Microsoft-Windows-Diagnostics-Performance/Operational\".",
+        "errorType":  "System.Exception",
+        "fullyQualifiedErrorId":  "NoMatchingLogsFound,Microsoft.PowerShell.Commands.GetWinEventCommand"
+    },
+    {
+        "timestampUtc":  "2026-08-14T05:30:59.9270448Z",
+        "section":  "LoginDurationIndicators",
+        "operation":  "Get-WinEvent Microsoft-Windows-GroupPolicy/Operational",
+        "message":  "No events were found that match the specified selection criteria.",
+        "errorType":  "System.Exception",
+        "fullyQualifiedErrorId":  "NoMatchingEventsFound,Microsoft.PowerShell.Commands.GetWinEventCommand"
+    },
+    {
+        "timestampUtc":  "2026-08-14T05:31:00.0140556Z",
+        "section":  "DeviceBootPerformance",
+        "operation":  "Parse Diagnostics-Performance EventId 100",
+        "message":  "There is not an event log on the localhost computer that matches \"Microsoft-Windows-Diagnostics-Performance/Operational\".",
+        "errorType":  "System.Exception",
+        "fullyQualifiedErrorId":  "NoMatchingLogsFound,Microsoft.PowerShell.Commands.GetWinEventCommand"
+    },
+    {
+        "timestampUtc":  "2026-08-14T05:31:12.4609329Z",
+        "section":  "EventViewerLogonPerformance",
+        "operation":  "Get-WinEvent Security",
+        "message":  "No events were found that match the specified selection criteria.",
+        "errorType":  "System.Exception",
+        "fullyQualifiedErrorId":  "NoMatchingEventsFound,Microsoft.PowerShell.Commands.GetWinEventCommand"
+    },
+    {
+        "timestampUtc":  "2026-08-14T05:31:12.4769584Z",
+        "section":  "IntuneManagementExtension",
+        "operation":  "Enumerate IME logs",
+        "message":  "C:\\ProgramData\\Microsoft\\IntuneManagementExtension\\Logs",
+        "errorType":  "System.IO.DirectoryNotFoundException",
+        "fullyQualifiedErrorId":  "C:\\ProgramData\\Microsoft\\IntuneManagementExtension\\Logs"
+    },
+    {
+        "timestampUtc":  "2026-08-14T05:31:12.6103545Z",
+        "section":  "ApplicationDeploymentActivity",
+        "operation":  "Get-WinEvent Microsoft-Windows-DeviceManagement-Enterprise-Diagnostics-Provider/Admin",
+        "message":  "No events were found that match the specified selection criteria.",
+        "errorType":  "System.Exception",
+        "fullyQualifiedErrorId":  "NoMatchingEventsFound,Microsoft.PowerShell.Commands.GetWinEventCommand"
+    },
+    {
+        "timestampUtc":  "2026-08-14T05:31:12.6365570Z",
+        "section":  "ApplicationDeploymentActivity",
+        "operation":  "Get-WinEvent Microsoft-Windows-DeviceManagement-Enterprise-Diagnostics-Provider/Operational",
+        "message":  "No events were found that match the specified selection criteria.",
+        "errorType":  "System.Exception",
+        "fullyQualifiedErrorId":  "NoMatchingEventsFound,Microsoft.PowerShell.Commands.GetWinEventCommand"
+    }
+]
